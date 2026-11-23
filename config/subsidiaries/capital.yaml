@@ -1,0 +1,13 @@
+﻿entity:
+  name: "Lunanele Capital (Pty) Ltd"
+  slug: "capital"
+  entity_type: "subsidiary"
+  parent: "holdings"
+  domain: "capital.lunaneleholdings.com"
+  ecommerce_enabled: false
+  ga4_property_env: "GA4_CAPITAL_PROPERTY_ID"
+  search_console_site: "https://capital.lunaneleholdings.com/"
+  connectors:
+    ga4: true
+    search_console: true
+    merchant_center: false

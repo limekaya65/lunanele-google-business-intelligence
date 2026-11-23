@@ -1,0 +1,12 @@
+﻿{
+  "name": "lunanele-google-bi-ingestor",
+  "env": {
+    "GCP_PROJECT_ID": { "description": "Google Cloud Project ID", "order": 1 },
+    "BQ_DATASET_PREFIX": { "description": "BigQuery dataset prefix", "value": "lunanele_bi", "order": 2 },
+    "GA4_HOLDINGS_PROPERTY_ID": { "description": "GA4 Property ID for lunaneleholdings.com", "order": 3 },
+    "LUNACORE_WEBHOOK_URL": { "description": "LunaCore ingestion endpoint URL", "order": 4 },
+    "LUNACORE_API_KEY": { "description": "LunaCore API authentication token", "order": 5 }
+  },
+  "options": { "allow-unauthenticated": false, "memory": "512Mi", "cpu": "1" },
+  "hooks": { "precreate": { "commands": ["chmod +x ./scripts/bootstrap_gcp.sh && ./scripts/bootstrap_gcp.sh"] } }
+}

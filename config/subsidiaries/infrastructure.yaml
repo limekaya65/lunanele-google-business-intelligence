@@ -1,0 +1,13 @@
+﻿entity:
+  name: "Lunanele Infrastructure (Pty) Ltd"
+  slug: "infrastructure"
+  entity_type: "subsidiary"
+  parent: "holdings"
+  domain: "infrastructure.lunaneleholdings.com"
+  ecommerce_enabled: false
+  ga4_property_env: "GA4_INFRASTRUCTURE_PROPERTY_ID"
+  search_console_site: "https://infrastructure.lunaneleholdings.com/"
+  connectors:
+    ga4: true
+    search_console: true
+    merchant_center: false

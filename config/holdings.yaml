@@ -1,0 +1,13 @@
+﻿entity:
+  name: "Lunanele Holdings (Pty) Ltd"
+  slug: "holdings"
+  entity_type: "pure_holding"
+  domain: "lunaneleholdings.com"
+  contact_email: "relations@lunaneleholdings.com"
+  ecommerce_enabled: false
+  ga4_property_env: "GA4_HOLDINGS_PROPERTY_ID"
+  search_console_site: "sc-domain:lunaneleholdings.com"
+  connectors:
+    ga4: true
+    search_console: true
+    merchant_center: false

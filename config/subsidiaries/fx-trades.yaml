@@ -1,0 +1,13 @@
+﻿entity:
+  name: "Lunanele FX Trades (Pty) Ltd"
+  slug: "fx-trades"
+  entity_type: "subsidiary"
+  parent: "holdings"
+  domain: "fx.lunaneleholdings.com"
+  ecommerce_enabled: false
+  ga4_property_env: "GA4_FX_TRADES_PROPERTY_ID"
+  search_console_site: "https://fx.lunaneleholdings.com/"
+  connectors:
+    ga4: true
+    search_console: true
+    merchant_center: false

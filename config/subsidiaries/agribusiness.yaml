@@ -1,0 +1,13 @@
+﻿entity:
+  name: "Lunanele Agribusiness (Pty) Ltd"
+  slug: "agribusiness"
+  entity_type: "subsidiary"
+  parent: "holdings"
+  domain: "agribusiness.lunaneleholdings.com"
+  ecommerce_enabled: true
+  ga4_property_env: "GA4_AGRIBUSINESS_PROPERTY_ID"
+  search_console_site: "https://agribusiness.lunaneleholdings.com/"
+  connectors:
+    ga4: true
+    search_console: true
+    merchant_center: true
