@@ -221,10 +221,10 @@ resource "google_cloud_scheduler_job" "daily" {
 
 # ---------- Free-tier guardrails ----------
 resource "google_artifact_registry_repository" "images" {
-  repository_id = "lunanele-bi"
-  location      = var.region
-  format        = "DOCKER"
-  labels        = local.labels
+  repository_id          = "lunanele-bi"
+  location               = var.region
+  format                 = "DOCKER"
+  labels                 = local.labels
   cleanup_policy_dry_run = false
   cleanup_policies {
     id     = "keep-latest-2"
