@@ -9,6 +9,7 @@ import yaml
 from fastapi import FastAPI
 from google.cloud import bigquery
 
+from src.connectors.business_profile_client import fetch_business_profile_daily
 from src.connectors.ga4_client import fetch_ga4_daily
 from src.connectors.merchant_center_client import fetch_merchant_products
 from src.connectors.search_console_client import fetch_search_console_daily
@@ -44,9 +45,13 @@ def write_bq(table_id: str, rows: list[dict]) -> int:
     project = _project_id()
     if not rows or not project:
         return 0
-    errors = bigquery.Client(project=project).insert_rows_json(f"{project}.{table_id}", rows)
-    if errors:
-        raise RuntimeError(f"BigQuery insert error on {table_id}: {errors[:5]}")
+    # Batch load jobs are free; streaming inserts (insert_rows_json) are billed.
+    job = bigquery.Client(project=project).load_table_from_json(
+        rows,
+        f"{project}.{table_id}",
+        job_config=bigquery.LoadJobConfig(write_disposition="WRITE_APPEND", ignore_unknown_values=True),
+    )
+    job.result()
     return len(rows)
 
 
@@ -71,6 +76,7 @@ def run_sync():
         ("ga4", fetch_ga4_daily),
         ("search_console", fetch_search_console_daily),
         ("merchant_center", fetch_merchant_products),
+        ("business_profile", fetch_business_profile_daily),
     ]
     collected: dict[str, list[dict]] = {name: [] for name, _ in connectors}
     errors: list[dict] = []
@@ -90,6 +96,7 @@ def run_sync():
         "ga4": ("ga4_rows", f"{prefix}_raw.ga4_daily_metrics"),
         "search_console": ("gsc_rows", f"{prefix}_raw.search_console_daily"),
         "merchant_center": ("mc_rows", f"{prefix}_raw.merchant_center_products"),
+        "business_profile": ("gbp_rows", f"{prefix}_raw.business_profile_daily"),
     }
     summary: dict = {"source": "lunanele-google-bi", "sync_date": date.today().isoformat()}
     for name, (key, table) in targets.items():

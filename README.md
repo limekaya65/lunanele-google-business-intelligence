@@ -18,6 +18,10 @@ A FastAPI service on Cloud Run. Calling `POST /run-sync` pulls, for every entity
 | Google Analytics 4 (Data API) | sessions, users, engaged sessions, key events by source/medium (yesterday) | `lunanele_bi_raw.ga4_daily_metrics` |
 | Search Console | clicks, impressions, CTR, position by query/page (2 days ago) | `lunanele_bi_raw.search_console_daily` |
 | Merchant Center (Merchant API v1) | product snapshot + approval status | `lunanele_bi_raw.merchant_center_products` |
+| Business Profile (Performance API) | Search/Maps views, calls, website clicks, directions, chats | `lunanele_bi_raw.business_profile_daily` |
+
+Looker Studio dashboards read the views in `lunanele_bi_mart`:
+`v_customer_acquisition_daily` (one row per entity per day), `v_top_search_queries`, `v_holdings_executive_rollup`.
 
 A summary is optionally posted to LunaCore (`LUNACORE_WEBHOOK_URL` + `LUNACORE_API_KEY`). `GET /health` lists the configured entities.
 
@@ -29,14 +33,14 @@ A summary is optionally posted to LunaCore (`LUNACORE_WEBHOOK_URL` + `LUNACORE_A
    - **GA4**: Admin → Property access management → add `lunanele-bi-runner@<project>.iam.gserviceaccount.com` as *Viewer*.
    - **Search Console**: Settings → Users and permissions → add the same email (*Restricted* is enough).
    - **Merchant Center**: Settings → People and access → add the same email.
-4. Schedule the sync daily with Cloud Scheduler, e.g.
-   ```bash
-   gcloud scheduler jobs create http lunanele-bi-daily --location africa-south1 \
-     --schedule "0 6 * * *" --time-zone "Africa/Johannesburg" \
-     --uri "https://<service-url>/run-sync" --http-method POST \
-     --oidc-service-account-email lunanele-bi-runner@<project>.iam.gserviceaccount.com
-   ```
-   (give that account `roles/run.invoker` on the service).
+   - **Business Profile** does not accept service accounts: create an OAuth client (Desktop app) in the same project, request access to the Business Profile APIs (free, via Google's application form), generate a refresh token for the Google account that manages the profiles, and set `GBP_OAUTH_*` plus each `GBP_<ENTITY>_LOCATION_ID`.
+4. Run `BILLING_ACCOUNT_ID=... ./scripts/free_tier_guard.sh`. It schedules the sync daily at 06:10 SAST, adds a $1 budget alert so you hear before anything is charged, and limits stored container images.
+
+## Staying on free tiers
+
+- BigQuery is written with **load jobs** (free), not streaming inserts (billed).
+- One Cloud Scheduler job, a small Cloud Run service and a few MB of BigQuery data sit well inside Google's monthly free allowances; the budget alert is the safety net.
+- FX Trades has every connector switched off (not public-facing). Subsidiaries without a live website have Search Console off until one exists.
 
 ## Configuration
 

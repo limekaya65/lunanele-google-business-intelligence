@@ -1,13 +1,16 @@
 entity:
-  name: "Lunanele Technology (Pty) Ltd"
-  slug: "technology"
-  entity_type: "subsidiary"
-  parent: "holdings"
-  domain: "technology.lunaneleholdings.com"
+  name: Lunanele Technology (Pty) Ltd
+  slug: technology
+  entity_type: subsidiary
+  parent: holdings
+  domain: tech.lunaneleholdings.com
   ecommerce_enabled: false
-  ga4_property_env: "GA4_TECHNOLOGY_PROPERTY_ID"
-  search_console_site: "https://technology.lunaneleholdings.com/"
+  ga4_property_env: GA4_TECHNOLOGY_PROPERTY_ID
+  search_console_site: sc-domain:lunaneleholdings.com
   connectors:
     ga4: true
     search_console: true
     merchant_center: false
+    business_profile: true
+  search_console_page_contains: tech.lunaneleholdings.com
+  business_profile_location_env: GBP_TECHNOLOGY_LOCATION_ID

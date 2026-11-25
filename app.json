@@ -1,21 +1,105 @@
 {
   "name": "lunanele-google-bi-ingestor",
   "env": {
-    "GCP_PROJECT_ID": { "description": "Google Cloud Project ID", "order": 1 },
-    "BQ_DATASET_PREFIX": { "description": "BigQuery dataset prefix", "value": "lunanele_bi", "order": 2 },
-    "GA4_HOLDINGS_PROPERTY_ID": { "description": "GA4 Property ID for lunaneleholdings.com", "order": 3 },
-    "LUNACORE_WEBHOOK_URL": { "description": "LunaCore ingestion endpoint URL (optional)", "required": false, "order": 4 },
-    "LUNACORE_API_KEY": { "description": "LunaCore API authentication token (optional)", "required": false, "order": 5 },
-    "GA4_INFRASTRUCTURE_PROPERTY_ID": { "description": "GA4 Property ID - Infrastructure (optional)", "required": false, "order": 6 },
-    "GA4_TECHNOLOGY_PROPERTY_ID": { "description": "GA4 Property ID - Technology (optional)", "required": false, "order": 7 },
-    "GA4_CAPITAL_PROPERTY_ID": { "description": "GA4 Property ID - Capital (optional)", "required": false, "order": 8 },
-    "GA4_AGRIBUSINESS_PROPERTY_ID": { "description": "GA4 Property ID - Agribusiness (optional)", "required": false, "order": 9 },
-    "GA4_FX_TRADES_PROPERTY_ID": { "description": "GA4 Property ID - FX Trades (optional)", "required": false, "order": 10 },
-    "MERCHANT_CENTER_AGRIBUSINESS_ID": { "description": "Merchant Center account ID - Agribusiness (optional)", "required": false, "order": 11 }
+    "GCP_PROJECT_ID": {
+      "description": "Google Cloud Project ID",
+      "order": 1
+    },
+    "BQ_DATASET_PREFIX": {
+      "description": "BigQuery dataset prefix",
+      "value": "lunanele_bi",
+      "order": 2
+    },
+    "GA4_HOLDINGS_PROPERTY_ID": {
+      "description": "GA4 Property ID for lunaneleholdings.com",
+      "order": 3
+    },
+    "LUNACORE_WEBHOOK_URL": {
+      "description": "LunaCore ingestion endpoint URL (optional)",
+      "required": false,
+      "order": 4
+    },
+    "LUNACORE_API_KEY": {
+      "description": "LunaCore API authentication token (optional)",
+      "required": false,
+      "order": 5
+    },
+    "GA4_INFRASTRUCTURE_PROPERTY_ID": {
+      "description": "GA4 Property ID - Infrastructure (optional)",
+      "required": false,
+      "order": 6
+    },
+    "GA4_TECHNOLOGY_PROPERTY_ID": {
+      "description": "GA4 Property ID - Technology (optional)",
+      "required": false,
+      "order": 7
+    },
+    "GA4_CAPITAL_PROPERTY_ID": {
+      "description": "GA4 Property ID - Capital (optional)",
+      "required": false,
+      "order": 8
+    },
+    "GA4_AGRIBUSINESS_PROPERTY_ID": {
+      "description": "GA4 Property ID - Agribusiness (optional)",
+      "required": false,
+      "order": 9
+    },
+    "MERCHANT_CENTER_AGRIBUSINESS_ID": {
+      "description": "Merchant Center account ID - Agribusiness (optional)",
+      "required": false,
+      "order": 11
+    },
+    "GBP_HOLDINGS_LOCATION_ID": {
+      "description": "Business Profile ID - Holdings (optional)",
+      "required": false,
+      "order": 21
+    },
+    "GBP_TECHNOLOGY_LOCATION_ID": {
+      "description": "Business Profile ID - Technology (optional)",
+      "required": false,
+      "order": 22
+    },
+    "GBP_AGRIBUSINESS_LOCATION_ID": {
+      "description": "Business Profile ID - Agriculture (optional)",
+      "required": false,
+      "order": 23
+    },
+    "GBP_INFRASTRUCTURE_LOCATION_ID": {
+      "description": "Business Profile ID - Infrastructure (optional)",
+      "required": false,
+      "order": 24
+    },
+    "GBP_OAUTH_CLIENT_ID": {
+      "description": "OAuth client ID for Business Profile (optional)",
+      "required": false,
+      "order": 25
+    },
+    "GBP_OAUTH_CLIENT_SECRET": {
+      "description": "OAuth client secret for Business Profile (optional)",
+      "required": false,
+      "order": 26
+    },
+    "GBP_OAUTH_REFRESH_TOKEN": {
+      "description": "OAuth refresh token for Business Profile (optional)",
+      "required": false,
+      "order": 27
+    }
   },
-  "options": { "allow-unauthenticated": false, "memory": "512Mi", "cpu": "1" },
+  "options": {
+    "allow-unauthenticated": false,
+    "memory": "512Mi",
+    "cpu": "1"
+  },
   "hooks": {
-    "precreate": { "commands": ["chmod +x ./scripts/bootstrap_gcp.sh && ./scripts/bootstrap_gcp.sh"] },
-    "postcreate": { "commands": ["gcloud run services update \"$K_SERVICE\" --region \"$GOOGLE_CLOUD_REGION\" --service-account \"lunanele-bi-runner@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com\" --quiet"] }
+    "precreate": {
+      "commands": [
+        "chmod +x ./scripts/bootstrap_gcp.sh && ./scripts/bootstrap_gcp.sh"
+      ]
+    },
+    "postcreate": {
+      "commands": [
+        "gcloud run services update \"$K_SERVICE\" --region \"$GOOGLE_CLOUD_REGION\" --service-account \"lunanele-bi-runner@$GOOGLE_CLOUD_PROJECT.iam.gserviceaccount.com\" --quiet"
+      ]
+    }
   }
 }

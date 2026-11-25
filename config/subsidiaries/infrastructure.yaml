@@ -1,13 +1,15 @@
+# Search Console: no live subdomain yet. Enable once a site exists and is in the sc-domain property.
 entity:
-  name: "Lunanele Infrastructure (Pty) Ltd"
-  slug: "infrastructure"
-  entity_type: "subsidiary"
-  parent: "holdings"
-  domain: "infrastructure.lunaneleholdings.com"
+  name: Lunanele Infrastructure (Pty) Ltd
+  slug: infrastructure
+  entity_type: subsidiary
+  parent: holdings
+  domain: infrastructure.lunaneleholdings.com
   ecommerce_enabled: false
-  ga4_property_env: "GA4_INFRASTRUCTURE_PROPERTY_ID"
-  search_console_site: "https://infrastructure.lunaneleholdings.com/"
+  ga4_property_env: GA4_INFRASTRUCTURE_PROPERTY_ID
   connectors:
     ga4: true
-    search_console: true
+    search_console: false
     merchant_center: false
+    business_profile: true
+  business_profile_location_env: GBP_INFRASTRUCTURE_LOCATION_ID

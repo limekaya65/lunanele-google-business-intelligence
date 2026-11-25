@@ -18,7 +18,7 @@ gcloud config set project "${PROJECT_ID}"
 # merchantapi replaces content.googleapis.com (Content API for Shopping, sunset 18 Aug 2026).
 gcloud services enable run.googleapis.com cloudbuild.googleapis.com bigquery.googleapis.com \
   secretmanager.googleapis.com analyticsdata.googleapis.com searchconsole.googleapis.com \
-  merchantapi.googleapis.com
+  merchantapi.googleapis.com businessprofileperformance.googleapis.com cloudscheduler.googleapis.com
 
 gcloud iam service-accounts describe "${SA_EMAIL}" >/dev/null 2>&1 || \
   gcloud iam service-accounts create "${SA_NAME}" --display-name="Lunanele BI Ingestor"
