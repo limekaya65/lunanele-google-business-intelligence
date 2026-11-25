@@ -23,3 +23,15 @@ jobs:
       - run: python -c "from src.config import load_entities; print([e.slug for e in load_entities()])"
       - run: pytest -q tests
       - run: pip-audit -r requirements.txt
+
+  terraform:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infrastructure/terraform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+      - run: terraform fmt -check -recursive -diff
+      - run: terraform init -backend=false
+      - run: terraform validate

@@ -1,0 +1,63 @@
+[
+  {
+    "name": "metric_date",
+    "type": "DATE",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "entity_slug",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "location_id",
+    "type": "STRING",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "impressions_search_desktop",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "impressions_search_mobile",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "impressions_maps_desktop",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "impressions_maps_mobile",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "call_clicks",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "website_clicks",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "direction_requests",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "conversations",
+    "type": "INTEGER",
+    "mode": "NULLABLE"
+  },
+  {
+    "name": "ingested_at",
+    "type": "TIMESTAMP",
+    "mode": "NULLABLE",
+    "defaultValueExpression": "CURRENT_TIMESTAMP()"
+  }
+]
