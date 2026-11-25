@@ -1,4 +1,4 @@
-﻿CREATE TABLE IF NOT EXISTS `lunanele_bi_raw.ga4_daily_metrics` (
+CREATE TABLE IF NOT EXISTS `lunanele_bi_raw.ga4_daily_metrics` (
   event_date DATE NOT NULL,
   entity_slug STRING NOT NULL,
   entity_type STRING NOT NULL,
