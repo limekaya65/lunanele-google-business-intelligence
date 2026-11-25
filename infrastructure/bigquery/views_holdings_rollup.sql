@@ -1,4 +1,4 @@
-﻿CREATE OR REPLACE VIEW `lunanele_bi_mart.v_holdings_executive_rollup` AS
+CREATE OR REPLACE VIEW `lunanele_bi_mart.v_holdings_executive_rollup` AS
 SELECT
   event_date,
   entity_slug,
