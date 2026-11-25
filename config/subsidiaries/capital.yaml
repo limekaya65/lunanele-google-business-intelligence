@@ -1,13 +1,14 @@
+# Search Console: no live subdomain yet. Enable once a site exists and is in the sc-domain property.
 entity:
-  name: "Lunanele Capital (Pty) Ltd"
-  slug: "capital"
-  entity_type: "subsidiary"
-  parent: "holdings"
-  domain: "capital.lunaneleholdings.com"
+  name: Lunanele Capital (Pty) Ltd
+  slug: capital
+  entity_type: subsidiary
+  parent: holdings
+  domain: capital.lunaneleholdings.com
   ecommerce_enabled: false
-  ga4_property_env: "GA4_CAPITAL_PROPERTY_ID"
-  search_console_site: "https://capital.lunaneleholdings.com/"
+  ga4_property_env: GA4_CAPITAL_PROPERTY_ID
   connectors:
     ga4: true
-    search_console: true
+    search_console: false
     merchant_center: false
+    business_profile: false

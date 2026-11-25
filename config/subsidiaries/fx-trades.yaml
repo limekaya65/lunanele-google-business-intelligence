@@ -1,13 +1,14 @@
+# Not public-facing: all connectors off until the Founder authorises a public launch.
 entity:
-  name: "Lunanele FX Trades (Pty) Ltd"
-  slug: "fx-trades"
-  entity_type: "subsidiary"
-  parent: "holdings"
-  domain: "fx.lunaneleholdings.com"
+  name: Lunanele FX Trades (Pty) Ltd
+  slug: fx-trades
+  entity_type: subsidiary
+  parent: holdings
+  domain: fx.lunaneleholdings.com
   ecommerce_enabled: false
-  ga4_property_env: "GA4_FX_TRADES_PROPERTY_ID"
-  search_console_site: "https://fx.lunaneleholdings.com/"
+  ga4_property_env: GA4_FX_TRADES_PROPERTY_ID
   connectors:
-    ga4: true
-    search_console: true
+    ga4: false
+    search_console: false
     merchant_center: false
+    business_profile: false

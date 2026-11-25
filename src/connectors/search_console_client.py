@@ -13,6 +13,12 @@ def fetch_search_console_daily(entity: dict, target_date: str | None = None) -> 
     if not site_url:
         return []
     run_date = target_date or (date.today() - timedelta(days=2)).isoformat()
+    # One domain property covers every subdomain; split it per entity by page URL.
+    filters = []
+    if entity.get("search_console_page_contains"):
+        filters.append({"dimension": "page", "operator": "contains", "expression": entity["search_console_page_contains"]})
+    if entity.get("search_console_page_excludes"):
+        filters.append({"dimension": "page", "operator": "notContains", "expression": entity["search_console_page_excludes"]})
     credentials, _ = google.auth.default(scopes=SCOPES)
     service = build("searchconsole", "v1", credentials=credentials, cache_discovery=False)
 
@@ -26,6 +32,7 @@ def fetch_search_console_daily(entity: dict, target_date: str | None = None) -> 
                 "dimensions": ["query", "page"],
                 "rowLimit": ROW_LIMIT,
                 "startRow": start_row,
+                **({"dimensionFilterGroups": [{"groupType": "and", "filters": filters}]} if filters else {}),
             },
         ).execute()
         batch = resp.get("rows", [])

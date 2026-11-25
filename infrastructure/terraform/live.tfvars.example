@@ -1,0 +1,13 @@
+project_id         = "lunanele-bi-live"
+environment        = "live"
+image              = "africa-south1-docker.pkg.dev/lunanele-bi-live/lunanele-bi/app:latest"
+billing_account_id = "" # gcloud billing accounts list
+retention_days     = null # e.g. 760 (25 months) once the retention period is decided
+secrets_in_use     = []   # add GBP_OAUTH_* / LUNACORE_API_KEY once their secrets hold values
+admins             = []   # ["user:second.admin@lunaneleholdings.com"]
+env = {
+  GA4_HOLDINGS_PROPERTY_ID   = ""
+  GA4_TECHNOLOGY_PROPERTY_ID = ""
+  GBP_HOLDINGS_LOCATION_ID   = ""
+  GBP_TECHNOLOGY_LOCATION_ID = ""
+}
