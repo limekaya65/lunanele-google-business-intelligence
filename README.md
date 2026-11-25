@@ -23,6 +23,10 @@ A FastAPI service on Cloud Run. Calling `POST /run-sync` pulls, for every entity
 Looker Studio dashboards read the views in `lunanele_bi_mart`:
 `v_customer_acquisition_daily` (one row per entity per day), `v_top_search_queries`, `v_holdings_executive_rollup`.
 
+`POST /run-sync?date=YYYY-MM-DD` re-runs one day and `POST /backfill?start=…&end=…` re-runs up to 31 days; re-runs replace data, never duplicate it. Every run is recorded in `lunanele_bi_raw.sync_runs`.
+
+See `docs/RUNBOOK.md` (operations) and `docs/DATA_DICTIONARY.md` (tables and views).
+
 A summary is optionally posted to LunaCore (`LUNACORE_WEBHOOK_URL` + `LUNACORE_API_KEY`). `GET /health` lists the configured entities.
 
 ## Deploy

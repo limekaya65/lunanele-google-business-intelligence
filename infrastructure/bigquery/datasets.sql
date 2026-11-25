@@ -49,3 +49,15 @@ CREATE TABLE IF NOT EXISTS `lunanele_bi_raw.business_profile_daily` (
   conversations INT64,
   ingested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 ) PARTITION BY metric_date CLUSTER BY entity_slug;
+
+-- Audit trail: one row per sync run.
+CREATE TABLE IF NOT EXISTS `lunanele_bi_raw.sync_runs` (
+  run_id STRING NOT NULL,
+  started_at TIMESTAMP NOT NULL,
+  finished_at TIMESTAMP,
+  status STRING,
+  target_date DATE,
+  rows_written INT64,
+  error_count INT64,
+  errors_json STRING
+) PARTITION BY DATE(started_at);

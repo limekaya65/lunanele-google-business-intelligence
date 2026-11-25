@@ -56,3 +56,10 @@ FROM (SELECT * EXCEPT(rn) FROM (
   FROM `lunanele_bi_raw.search_console_daily`) WHERE rn = 1)
 WHERE query_date >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
 GROUP BY 1, 2;
+
+-- Data freshness per source, for a "last updated" tile and monitoring.
+CREATE OR REPLACE VIEW `lunanele_bi_mart.v_data_freshness` AS
+SELECT 'ga4' AS source, entity_slug, MAX(event_date) AS latest_date FROM `lunanele_bi_raw.ga4_daily_metrics` GROUP BY 1, 2
+UNION ALL SELECT 'search_console', entity_slug, MAX(query_date) FROM `lunanele_bi_raw.search_console_daily` GROUP BY 1, 2
+UNION ALL SELECT 'business_profile', entity_slug, MAX(metric_date) FROM `lunanele_bi_raw.business_profile_daily` GROUP BY 1, 2
+UNION ALL SELECT 'merchant_center', entity_slug, MAX(snapshot_date) FROM `lunanele_bi_raw.merchant_center_products` GROUP BY 1, 2;

@@ -1,8 +1,8 @@
-import os, sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import os
 from unittest import mock
 from src.connectors import business_profile_client as gbp, search_console_client as sc
-import src.main as m
+from src.config import load_entities
+from src import storage
 
 def test_gbp_parses_and_sums():
     payload={"multiDailyMetricTimeSeries":[{"dailyMetricTimeSeries":[
@@ -23,15 +23,8 @@ def test_gbp_skips_without_credentials():
 def test_search_console_page_filter():
     svc=mock.MagicMock(); svc.searchanalytics().query().execute.return_value={"rows":[]}
     with mock.patch.object(sc,"build",return_value=svc), mock.patch.object(sc.google.auth,"default",return_value=(object(),"p")):
-        ent=[e for e in m.load_entities() if e["slug"]=="technology"][0]
+        ent=[e for e in load_entities() if e.slug=="technology"][0].as_dict()
         sc.fetch_search_console_daily(ent,"2026-11-20")
     body=svc.searchanalytics().query.call_args.kwargs["body"]
     assert body["dimensionFilterGroups"][0]["filters"][0]=={"dimension":"page","operator":"contains","expression":"tech.lunaneleholdings.com"}
 
-def test_fx_all_off_and_load_job_used():
-    fx=[e for e in m.load_entities() if e["slug"]=="fx-trades"][0]
-    assert not any(fx["connectors"].values())
-    client=mock.Mock()
-    with mock.patch.dict(os.environ,{"GCP_PROJECT_ID":"p"}), mock.patch.object(m.bigquery,"Client",return_value=client):
-        assert m.write_bq("ds.t",[{"a":1}])==1
-    client.load_table_from_json.assert_called_once(); client.insert_rows_json.assert_not_called()

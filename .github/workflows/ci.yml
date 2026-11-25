@@ -1,0 +1,25 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt -r requirements-dev.txt
+      - name: No BOMs or CRLF
+        run: |
+          ! grep -rlI $'^\xEF\xBB\xBF' --exclude-dir=.git . && ! grep -rlI $'\r$' --exclude-dir=.git .
+      - run: bash -n scripts/*.sh
+      - run: python -m json.tool app.json > /dev/null
+      - run: python -c "from src.config import load_entities; print([e.slug for e in load_entities()])"
+      - run: pytest -q tests
+      - run: pip-audit -r requirements.txt
